@@ -28,4 +28,11 @@ green_light
     telemetry final_wear = tyre_wear_calc(base_pace);
     engineer_says("Final Telemetry:");
     engineer_says(final_wear);
+
+    // 5. Uso de estructura repetitiva WHILE y operador lógico NOT
+    steward_decision is_raining = track_clear;
+    keep_pushing_while (telemetry_denies is_raining) {
+        engineer_says("Track is dry. Keeping the pace.");
+        is_raining = red_flag; // Simula que empieza a llover para salir del ciclo
+    }
 chequered_flag

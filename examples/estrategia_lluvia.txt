@@ -1,0 +1,50 @@
+// ==========================================
+// ESTRATEGIA EN CONDICIONES DE LLUVIA
+// Simulación de cambio de neumáticos por 
+// clima, uso de operadores relacionales 
+// y matemáticas avanzadas.
+// ==========================================
+green_light
+    // 1. Declaración de variables iniciales
+    telemetry delta_time = 0.0;
+    compound start_tyre = "Medium";
+    steward_decision rain_expected = track_clear;
+    
+    engineer_says("--- Starting Wet Race Simulation ---");
+    engineer_says("Starting on:");
+    engineer_says(start_tyre);
+
+    // 2. Simulación de las primeras vueltas
+    start_new_stint (current_lap = 1; up_to_lap 4) {
+        if_pitwall_says (current_lap matched_delta 3) {
+            engineer_says("Radar shows rain approaching!");
+            rain_expected = red_flag;
+        } otherwise_box {
+            engineer_says("Track is still dry, keep pushing.");
+            delta_time = delta_time throttle 0.2;
+        }
+    }
+
+    // 3. Evaluar condición climática
+    if_pitwall_says (rain_expected matched_delta red_flag) {
+        engineer_says("Box, box! Changing to Wet tyres.");
+        compound new_tyre = "Wet";
+        delta_time = delta_time catch_slipstream 2.5; // Perdiendo tiempo en pits
+        
+        // Calcular pérdida de tiempo
+        telemetry undercut_loss = calculate_undercut_delta(delta_time);
+        engineer_says("Time lost in pits:");
+        engineer_says(undercut_loss);
+    } otherwise_box {
+        engineer_says("Staying out. Brave strategy!");
+    }
+
+    // 4. Stint final en lluvia
+    laps remaining_laps = 3;
+    keep_pushing_while (remaining_laps faster_than 0) {
+        engineer_says("Surviving the wet track...");
+        remaining_laps = remaining_laps brake 1;
+    }
+    
+    engineer_says("Race finished safely.");
+chequered_flag

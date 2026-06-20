@@ -19,8 +19,8 @@ green_light
         engineer_says("Lap number:");
         engineer_says(current_lap);
 
-        // Activación de DRS después de la vuelta 2
-        if_pitwall_says (current_lap faster_than 2) {
+        // Activación de DRS después de la vuelta 2 si NO hay red flag
+        if_pitwall_says (current_lap faster_than 2 and_drs_open telemetry_denies drs_enabled) {
             drs_enabled = track_clear;
         }
 
@@ -50,7 +50,21 @@ green_light
 chequered_flag
 """
 
-if __name__ == "__main__":
+if __name__ == '__main__':
+    import sys
+    import os
+    if len(sys.argv) < 2:
+        print("Uso: python {os.path.basename(__file__)} <archivo_f1>")
+        sys.exit(1)
+        
+    ruta_archivo = sys.argv[1]
+    if not os.path.exists(ruta_archivo):
+        print(f"Error: No se encontró el archivo '{ruta_archivo}'")
+        sys.exit(1)
+        
+    with open(ruta_archivo, 'r', encoding='utf-8') as archivo:
+        programa_ejemplo = archivo.read()
+        
     print(f"Programa de ejemplo definido ({len(programa_ejemplo)} caracteres).")
     print("=" * 80)
     print("ANÁLISIS LÉXICO — Lista completa de tokens")

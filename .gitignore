@@ -11,6 +11,3 @@ __pycache__/
 # Archivos de configuración de IntelliJ IDEA / PyCharm
 .idea/
 *.iml
-
-# Archivos generados automáticamente por ANTLR
-gen/

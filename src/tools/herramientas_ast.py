@@ -65,19 +65,20 @@ def analizar_y_visualizar(codigo_fuente, nombre_archivo='ast'):
     grafo.render(nombre_archivo, format='png', cleanup=True, view=True)
     print(f"Imagen generada y abierta como '{nombre_archivo}.png'")
 
-if __name__ == "__main__":
-    # Estrategia de carrera con la sintaxis corregida
-    codigo_f1 = """
-    green_light
-        telemetry expected_pace = 85.5 throttle 2.0 catch_slipstream 1.5;
-        laps current_lap = 1;
+if __name__ == '__main__':
+    import sys
+    import os
+    if len(sys.argv) < 2:
+        print("Uso: python {os.path.basename(__file__)} <archivo_f1>")
+        sys.exit(1)
         
-        // El FOR espera una 'asignacion' que termina en punto y coma (;)
-        start_new_stint (current_lap = 1; up_to_lap 5) {
-            engineer_says("Pushing on new stint");
-        }
-    chequered_flag
-    """
-
+    ruta_archivo = sys.argv[1]
+    if not os.path.exists(ruta_archivo):
+        print(f"Error: No se encontró el archivo '{ruta_archivo}'")
+        sys.exit(1)
+        
+    with open(ruta_archivo, 'r', encoding='utf-8') as archivo:
+        codigo_f1 = archivo.read()
+        
     print("Generando telemetría visual del AST...")
     analizar_y_visualizar(codigo_f1, nombre_archivo='estrategia_f1_ast')

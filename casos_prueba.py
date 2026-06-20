@@ -48,7 +48,7 @@ green_light
     engineer_says(undercut_time);
 
     // Demostrando la 2da estructura repetitiva (Equivalente a FOR)
-    start_new_stint (laps current_lap = 1 up_to_lap 5) {
+    start_new_stint (current_lap = 1; up_to_lap 5) {
         // Simulando quema de combustible (división / resta)
         base_pace = base_pace brake 0.2; 
     }

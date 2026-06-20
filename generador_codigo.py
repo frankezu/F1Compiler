@@ -171,29 +171,17 @@ def compilar_y_ejecutar(codigo_fuente):
     print("-" * 60)
 
 if __name__ == '__main__':
-    # Código maestro para probar TODO: ciclos, if, matemática, precedencia y lógicas
-    codigo_prueba = """
-    green_light
-        telemetry base_pace = 85.5;
-        compound current_tyre = "Soft";
+    if len(sys.argv) < 2:
+        print("Uso: python generador_codigo.py <archivo_f1>")
+        sys.exit(1)
         
-        engineer_says("--- Starting Race Simulation ---");
+    ruta_archivo = sys.argv[1]
+    if not os.path.exists(ruta_archivo):
+        print(f"Error: No se encontró el archivo '{ruta_archivo}'")
+        sys.exit(1)
         
-        start_new_stint (current_lap = 1; up_to_lap 3) {
-            engineer_says("Lap number:");
-            engineer_says(current_lap);
-            
-            if_pitwall_says (current_lap matched_delta 2 and_drs_open track_clear) {
-                engineer_says("Pushing! DRS Enabled");
-                base_pace = base_pace catch_slipstream 1.05;
-            } otherwise_box {
-                base_pace = base_pace throttle 0.1;
-            }
-        }
+    with open(ruta_archivo, 'r', encoding='utf-8') as archivo:
+        codigo_prueba = archivo.read()
         
-        telemetry final_wear = tyre_wear_calc(base_pace);
-        engineer_says("Final Telemetry Calculation (Square Root):");
-        engineer_says(final_wear);
-    chequered_flag
-    """
+    print(f"Leyendo programa desde: {ruta_archivo}")
     compilar_y_ejecutar(codigo_prueba)

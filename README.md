@@ -20,7 +20,8 @@ winget install Oracle.JDK.17
 winget install Graphviz.Graphviz
 ```
 
-> **Nota:** Es necesario reiniciar tu IDE tras instalar Graphviz para que el sistema reconozca la ruta en el PATH.
+> **Nota 1:** Es necesario reiniciar tu IDE tras instalar Graphviz para que el sistema reconozca la ruta en el PATH.
+> **Nota 2:** La instalación de Java (`Oracle.JDK.17`) es **opcional** y solo es necesaria si deseas volver a compilar la gramática desde cero. Para ejecutar y evaluar este proyecto, la carpeta autogenerada `gen/` ya viene incluida en el repositorio.
 
 ---
 
@@ -36,7 +37,15 @@ pip install -r requirements.txt
 
 ## 3. ¿Cómo Ejecutar el Compilador?
 
-Para ver el compilador en acción (incluyendo la generación de código Python y su ejecución dinámica), ejecuta el módulo principal:
+### Opción A: Ejecutar el flujo completo vía Notebook (Recomendado)
+
+La forma más sencilla de evaluar el proyecto es a través del archivo **`F1Compiler.ipynb`**. 
+1. Sube el `.zip` del proyecto a Google Colab o ábrelo localmente en Jupyter Notebook.
+2. Ejecuta las celdas en orden (Shift + Enter). El notebook instalará las dependencias y ejecutará cada una de las fases del compilador automáticamente, imprimiendo los resultados.
+
+### Opción B: Ejecutar vía Terminal
+
+Para ver el compilador en acción (incluyendo la generación de código Python y su ejecución dinámica) desde tu consola, ejecuta el módulo principal:
 
 ```powershell
 python generador_codigo.py
@@ -47,7 +56,7 @@ python generador_codigo.py
 #### Análisis Léxico
 
 ```powershell
-python herramientas_lexer.py
+python ejecutar_lexer.py
 ```
 
 Muestra la tabla detallada de tokens.
@@ -55,7 +64,7 @@ Muestra la tabla detallada de tokens.
 #### Análisis Sintáctico
 
 ```powershell
-python herramientas_ast.py
+python src/tools/herramientas_ast.py
 ```
 
 Genera y abre el PNG del Árbol de Sintaxis Abstracta (AST).
@@ -63,26 +72,35 @@ Genera y abre el PNG del Árbol de Sintaxis Abstracta (AST).
 #### Análisis Semántico
 
 ```powershell
-python herramientas_semanticas.py
+python src/tools/herramientas_semanticas.py
 ```
 
 Ejecuta las validaciones de Dirección de Carrera para detectar infracciones semánticas.
+
+#### Casos de Prueba
+
+```powershell
+python casos_prueba.py
+```
+
+Ejecuta tres baterías de pruebas distintas validando la correctitud de todas las características.
 
 ---
 
 ## Estructura del Proyecto
 
-| Archivo                      | Descripción                                                 |
-| ---------------------------- | ----------------------------------------------------------- |
-| `F1Compiler.g4`              | Gramática ANTLR oficial del lenguaje.                       |
-| `gramatica_ebnf.txt`         | Reglas de la gramática expresadas en formato E-BNF.         |
-| `estrategia_carrera.txt`     | Código fuente de ejemplo escrito en lenguaje F1.            |
-| `generador_codigo.py`        | Transpilador final que traduce programas F1 a Python.       |
-| `herramientas_lexer.py`      | Herramienta para análisis léxico y visualización de tokens. |
-| `herramientas_ast.py`        | Generación y visualización del AST mediante Graphviz.       |
-| `herramientas_semanticas.py` | Validaciones semánticas y detección de errores.             |
-| `requirements.txt`           | Dependencias necesarias para ejecutar el proyecto.          |
-| `README.md`                  | Documentación principal del proyecto.                       |
+| Archivo                            | Descripción                                                 |
+| ---------------------------------- | ----------------------------------------------------------- |
+| `F1Compiler.ipynb`                 | Notebook principal para ejecutar el pipeline completo.      |
+| `src/core/F1Compiler.g4`           | Gramática ANTLR oficial del lenguaje.                       |
+| `docs/gramatica_ebnf.txt`          | Reglas de la gramática expresadas en formato E-BNF.         |
+| `examples/estrategia_carrera.txt`  | Código fuente de ejemplo escrito en lenguaje F1.            |
+| `generador_codigo.py`              | Transpilador final que traduce programas F1 a Python.       |
+| `ejecutar_lexer.py`                | Script de entrada para visualizar la tabla de tokens.       |
+| `casos_prueba.py`                  | Diferentes escenarios de pruebas y testeo del lenguaje.     |
+| `src/tools/herramientas_ast.py`    | Generación y visualización del AST mediante Graphviz.       |
+| `src/tools/herramientas_semanticas.py` | Validaciones semánticas y detección de errores.         |
+| `gen/`                             | Carpeta con los analizadores generados por ANTLR.           |
 
 ---
 
@@ -124,30 +142,6 @@ El compilador sigue las fases clásicas de construcción de compiladores:
 
 ---
 
-## Archivos Adicionales Requeridos
-
-Antes de entregar el proyecto, asegúrate de incluir:
-
-### `gramatica_ebnf.txt`
-
-Contiene la gramática del lenguaje expresada en formato E-BNF.
-
-### `estrategia_carrera.txt`
-
-Contiene un programa de ejemplo escrito en el lenguaje F1Compiler para demostrar el funcionamiento completo del compilador.
-
----
-
-## Checklist de Entrega
-
-* [ ] `F1Compiler.g4`
-* [ ] `gramatica_ebnf.txt`
-* [ ] `estrategia_carrera.txt`
-* [ ] Todos los archivos `.py`
-* [ ] `requirements.txt`
-* [ ] `README.md`
-
----
 
 ## Integrantes
 

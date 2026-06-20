@@ -95,23 +95,21 @@ def ejecutar_analisis_semantico(codigo):
     print("=" * 80)
 
 if __name__ == '__main__':
-    # Este código está diseñado INTENCIONALMENTE con infracciones para probar las 3 reglas
-    codigo_infracciones = """
-    green_light
-        // Infracción 1: Declaración duplicada
-        laps current_lap = 1;
-        telemetry current_lap = 2.5;
-
-        // Infracción 2: Uso de variable fantasma (nunca se declaró)
-        fuel_load = 105.0;
-        engineer_says(unknown_tyre);
-
-        // Infracción 3: Se declara pero nadie la usa
-        compound neumatico = "Hard";
+    import sys
+    import os
+    if len(sys.argv) < 2:
+        print("Uso: python {os.path.basename(__file__)} <archivo_f1>")
+        sys.exit(1)
         
-        telemetry pace = 85.5;
-        pace = pace throttle 1.0; // Esta sí es completamente legal
-    chequered_flag
-    """
-
-    ejecutar_analisis_semantico(codigo_infracciones)
+    ruta_archivo = sys.argv[1]
+    if not os.path.exists(ruta_archivo):
+        print(f"Error: No se encontró el archivo '{ruta_archivo}'")
+        sys.exit(1)
+        
+    with open(ruta_archivo, 'r', encoding='utf-8') as archivo:
+        codigo_prueba = archivo.read()
+        
+    print("=" * 80)
+    print("REPORTE DE DIRECCIÓN DE CARRERA (Análisis Semántico)")
+    print("=" * 80)
+    analizar_semantica(codigo_prueba)
