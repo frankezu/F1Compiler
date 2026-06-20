@@ -1,0 +1,31 @@
+// ==========================================
+// SIMULACIÓN DE ESTRATEGIA F1COMPILER
+// Este código demuestra el uso de tipos, ciclos,
+// if/else, operadores booleanos y matemáticas.
+// ==========================================
+green_light
+    // 1. Declaración de tipos nativos
+    telemetry base_pace = 85.5;
+    compound current_tyre = "Soft";
+
+    engineer_says("--- Starting Race Simulation ---");
+
+    // 2. Uso de estructura repetitiva FOR y asignación
+    start_new_stint (current_lap = 1; up_to_lap 3) {
+        engineer_says("Lap number:");
+        engineer_says(current_lap);
+
+        // 3. Condicionales lógicos y matemáticas
+        if_pitwall_says (current_lap matched_delta 2 and_drs_open track_clear) {
+            engineer_says("Pushing! DRS Enabled");
+            base_pace = base_pace catch_slipstream 1.05; // Multiplicación
+        } otherwise_box {
+            base_pace = base_pace throttle 0.1; // Suma
+        }
+    }
+
+    // 4. Invocación de Función Nativa y asignación
+    telemetry final_wear = tyre_wear_calc(base_pace);
+    engineer_says("Final Telemetry:");
+    engineer_says(final_wear);
+chequered_flag

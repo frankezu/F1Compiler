@@ -1,5 +1,5 @@
 # ejecutar_lexer.py
-from herramientas_lexer import mostrar_tokens, contar_tokens_por_tipo
+from src.tools.herramientas_lexer import mostrar_tokens, contar_tokens_por_tipo
 
 programa_ejemplo = """
 green_light

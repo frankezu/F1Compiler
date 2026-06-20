@@ -1,0 +1,35 @@
+<program> ::= "green_light" <statement>* "chequered_flag" <EOF>
+
+<statement> ::= <declaracion>
+              | <asignacion>
+              | <impresion>
+              | <condicional>
+              | <ciclo>
+              | <llamada_funcion> ";"
+
+<declaracion> ::= <tipo> <ID> "=" <expresion> ";"
+<asignacion>  ::= <ID> "=" <expresion> ";"
+<impresion>   ::= "engineer_says" "(" <expresion> ")" ";"
+
+<condicional> ::= "if_pitwall_says" "(" <expresion> ")" "{" <statement>* "}" [ "otherwise_box" "{" <statement>* "}" ]
+
+<ciclo> ::= "keep_pushing_while" "(" <expresion> ")" "{" <statement>* "}"
+          | "start_new_stint" "(" <asignacion> "up_to_lap" <expresion> ")" "{" <statement>* "}"
+
+<tipo> ::= "laps" | "telemetry" | "steward_decision" | "compound"
+
+<expresion> ::= "(" <expresion> ")"
+              | <llamada_funcion>
+              | "telemetry_denies" <expresion>
+              | <expresion> ("catch_slipstream" | "in_dirty_air") <expresion>
+              | <expresion> ("throttle" | "brake") <expresion>
+              | <expresion> ("slower_than" | "faster_than" | "matched_delta") <expresion>
+              | <expresion> "and_drs_open" <expresion>
+              | <expresion> "or_box_opposite" <expresion>
+              | <NUM_INT> | <NUM_FLOAT> | <STRING> | <ID>
+              | "track_clear" | "red_flag"
+
+<llamada_funcion> ::= "tyre_wear_calc" "(" <expresion> ")"
+                    | "calc_steering" "(" <expresion> ")"
+                    | "deploy_ers" "(" <expresion> "," <expresion> ")"
+                    | "calculate_undercut_delta" "(" <expresion> ")"

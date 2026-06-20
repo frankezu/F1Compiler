@@ -1,7 +1,14 @@
 # herramientas_lexer.py
+import sys
+import os
+
+# Asegurar que la raíz del proyecto esté en sys.path para poder importar el paquete 'gen'
+ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
+if ROOT not in sys.path:
+    sys.path.insert(0, ROOT)
+
 from antlr4 import InputStream, CommonTokenStream
-from F1CompilerLexer import F1CompilerLexer
-from F1CompilerParser import F1CompilerParser
+from gen.F1CompilerLexer import F1CompilerLexer
 
 def mostrar_tokens(codigo_fuente):
     """
