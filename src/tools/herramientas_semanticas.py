@@ -112,4 +112,4 @@ if __name__ == '__main__':
     print("=" * 80)
     print("REPORTE DE DIRECCIÓN DE CARRERA (Análisis Semántico)")
     print("=" * 80)
-    analizar_semantica(codigo_prueba)
+    ejecutar_analisis_semantico(codigo_prueba)

@@ -68,11 +68,13 @@ def analizar_y_visualizar(codigo_fuente, nombre_archivo='ast'):
 if __name__ == '__main__':
     import sys
     import os
-    if len(sys.argv) < 2:
-        print("Uso: python {os.path.basename(__file__)} <archivo_f1>")
+    if len(sys.argv) < 3:
+        print("Uso: python {} <archivo_f1> <nombre_arbol>".format(os.path.basename(__file__)))
         sys.exit(1)
         
     ruta_archivo = sys.argv[1]
+    nombre_arbol = sys.argv[2]
+    
     if not os.path.exists(ruta_archivo):
         print(f"Error: No se encontró el archivo '{ruta_archivo}'")
         sys.exit(1)
@@ -81,4 +83,4 @@ if __name__ == '__main__':
         codigo_f1 = archivo.read()
         
     print("Generando telemetría visual del AST...")
-    analizar_y_visualizar(codigo_f1, nombre_archivo='estrategia_f1_ast')
+    analizar_y_visualizar(codigo_f1, nombre_archivo=nombre_arbol)

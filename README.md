@@ -16,18 +16,36 @@ Para lograr un resultado más robusto y profesional, hemos migrado el esquema in
 Abre PowerShell como administrador y ejecuta:
 
 ```powershell
-winget install Oracle.JDK.17
 winget install Graphviz.Graphviz
+winget install Oracle.JDK.17      # Opcional: solo si recompilas la gramática
 ```
 
-> **Nota 1:** Es necesario reiniciar tu IDE tras instalar Graphviz para que el sistema reconozca la ruta en el PATH.
-> **Nota 2:** La instalación de Java (`Oracle.JDK.17`) es **opcional** y solo es necesaria si deseas volver a compilar la gramática desde cero. Para ejecutar y evaluar este proyecto, la carpeta autogenerada `gen/` ya viene incluida en el repositorio.
+> **Nota 1:** Es necesario reiniciar tu editor o IDE tras instalar Graphviz para que el sistema reconozca la ruta en el PATH.
+> **Nota 2:** La instalación de Java (`Oracle.JDK.17`) es **opcional**. Solo es necesaria si deseas recompilar la gramática ANTLR desde cero. Para ejecutar y evaluar este proyecto, los analizadores autogenerados en `gen/` ya vienen incluidos en el repositorio.
 
 ---
 
 ## 2. Entorno y Dependencias de Python
 
-Con el entorno virtual activado en la terminal de IntelliJ, instala las librerías necesarias:
+### Crear el Entorno Virtual
+
+En la raíz del proyecto, abre PowerShell y ejecuta:
+
+```powershell
+python -m venv .venv
+```
+
+Luego, activa el entorno virtual:
+
+```powershell
+.\.venv\Scripts\Activate
+```
+
+Verás que el prompt de PowerShell cambia, mostrando `(.venv)` al inicio, indicando que el entorno está activo.
+
+### Instalar Dependencias
+
+Con el entorno virtual activado, instala las librerías necesarias:
 
 ```powershell
 pip install -r requirements.txt
@@ -37,10 +55,11 @@ pip install -r requirements.txt
 
 ## 3. ¿Cómo Ejecutar el Compilador?
 
-### Opción A: Ejecutar el flujo completo vía Notebook (Recomendado)
+### Opción A: Ejecutar el flujo completo vía Notebook (Recomendado) — MAIN del Programa
 
-La forma más sencilla de evaluar el proyecto es a través del archivo **`F1Compiler.ipynb`**. 
-1. Sube el `.zip` del proyecto a Google Colab o ábrelo localmente en Jupyter Notebook.
+El archivo **`F1Compiler.ipynb`** es el punto de entrada principal del programa. Es el notebook ejecutable que orquesta el pipeline completo del compilador.
+
+1. Sube el `.zip` del proyecto a Google Colab o ábrelo localmente en Jupyter Notebook/VS Code.
 2. Ejecuta las celdas en orden (Shift + Enter). El notebook instalará las dependencias y ejecutará cada una de las fases del compilador automáticamente, imprimiendo los resultados.
 
 ### Opción B: Ejecutar vía Terminal
@@ -84,6 +103,20 @@ python casos_prueba.py
 ```
 
 Ejecuta tres baterías de pruebas distintas validando la correctitud de todas las características.
+
+#### Crear y Ejecutar Ejemplos Personalizados
+
+En la carpeta `examples/` puedes crear tus propios programas F1. Por ejemplo, crea un archivo `mi_estrategia.txt` con código F1 y ejecuta:
+
+```powershell
+python generador_codigo.py examples/mi_estrategia.txt
+```
+
+También puedes visualizar el AST del archivo:
+
+```powershell
+python src/tools/herramientas_ast.py examples/mi_estrategia.txt mi_arbol
+```
 
 ---
 
